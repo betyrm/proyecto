@@ -27,12 +27,55 @@ app.get('/', async (req, res) => {
     });
 });
 
-app.post('/crear', async (req, res) => {
-    await PersonaController.create(req.body);
-    res.json('Usuario Creado y guardado en DB');
+/* app.post('/crear', async (req, res) => {
+    const { dni} = req.body;
+    
+    try {
+        const persona = await PersonaController.findByDni(dni.trim());
+    if (persona) {
+        
+        await PersonaController.update(persona._id, req.body);
+        res.status(200).json("Usuario editado y guardado en BD");
+    }else {
+        await PersonaController.create(req.body);
+        res.status(200).json("Usuario creado y guardado en BD");
+        }
+    }catch (error) {
+        res.status(400).json(error);
+     }
+        
+}); */
+app.post("/crear", async (req, res) => {
+    const { dni } = req.body;
+    
+    try {
+      const persona = await PersonaController.findByDni(dni.trim());
+  
+      if (persona) {
+        const { id, ...persona} = req.body;
+        await PersonaController.update(persona._id, req.body);
+        res.status(200).json("Usuario editado y guardado en DB");
+      } else {
+        await PersonaController.create(req.body);
+        res.status(200).json("Usuario Creado y guardado en DB");
+      }
+    } catch (error) {
+      console.log(error)
+      res.status(400).json(error);
+    }
+  });
+  
+/* app.put('/editar', async(req, res) => {
+    const { id, ...persona } = req.body;
+    await PersonaController.update(id, persona);
+    res.json("Usuario editado y guardado en BD");
 });
-
-
+ */
+app.delete("/eliminar/:id", async (req, res) => {
+    const { id } = req.params;
+    await PersonaController.delete(id);
+    res.json("Usuario eliminado de DB");
+})
 
 app.listen(PORT, () => {
     console.log(`Servidor escuchando por el Puerto: ${PORT}`);

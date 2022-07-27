@@ -13,6 +13,14 @@ class PersonaControllers{
         }
     }
 
+    async findByDni(dni) {
+        try {
+            return await Persona.findOne({dni: dni});
+        }catch (error) {
+            throw error;
+        }
+    }
+
     async create(persona) {
         try {
             return await Persona.create(persona);
@@ -20,6 +28,22 @@ class PersonaControllers{
             throw error;
         }
     }
+    async update(id, persona) {
+        try {
+            return await Persona.findByIdAndUpdate(id, persona)
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async delete(id) {
+        try {
+            return await Persona.findByIdAndDelete(id);
+        } catch(error) {
+            throw error
+        }
+    }
+
 
 }
 
