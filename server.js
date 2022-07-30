@@ -65,6 +65,7 @@ app.post("/crear", async (req, res) => {
     }
   });
   
+  
 /* app.put('/editar', async(req, res) => {
     const { id, ...persona } = req.body;
     await PersonaController.update(id, persona);
