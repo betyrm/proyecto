@@ -16,7 +16,7 @@ const app = express();
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cors({
-    origin: 'http://localhost:3000' //Dirección del front
+    origin: 'https://app-front-proyecto.herokuapp.com/' //Dirección del front
 }))
 
 
@@ -64,7 +64,7 @@ app.post("/crear", async (req, res) => {
       res.status(400).json(error);
     }
   });
-  
+
   
 /* app.put('/editar', async(req, res) => {
     const { id, ...persona } = req.body;
