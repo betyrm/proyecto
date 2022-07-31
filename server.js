@@ -16,7 +16,7 @@ const app = express();
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cors({
-    origin: 'https://app-front-proyecto.herokuapp.com' //Dirección del front
+    origin: ['https://app-front-proyecto.herokuapp.com', 'http://localhost:3001'] //Dirección del front
 }))
 
 
@@ -27,24 +27,7 @@ app.get('/', async (req, res) => {
     });
 });
 
-/* app.post('/crear', async (req, res) => {
-    const { dni} = req.body;
-    
-    try {
-        const persona = await PersonaController.findByDni(dni.trim());
-    if (persona) {
-        
-        await PersonaController.update(persona._id, req.body);
-        res.status(200).json("Usuario editado y guardado en BD");
-    }else {
-        await PersonaController.create(req.body);
-        res.status(200).json("Usuario creado y guardado en BD");
-        }
-    }catch (error) {
-        res.status(400).json(error);
-     }
-        
-}); */
+
 app.post("/crear", async (req, res) => {
     const { dni } = req.body;
     
